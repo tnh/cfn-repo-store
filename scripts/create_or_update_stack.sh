@@ -11,9 +11,6 @@ if [[ -z ${STACKNAME} ]] || [[ -z ${TEMPLATE} ]] || [[ ! -f ${PARAMETERS} ]]; th
     exit 1
 fi
 
-if [[ ! -z ${CI} ]]; then
-. ./scripts/assume-role.sh
-fi
 
 
 aws cloudformation describe-stacks --stack-name ${STACKNAME} > /dev/null 2>&1
