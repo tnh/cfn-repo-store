@@ -1,8 +1,8 @@
 .PHONY: clean validate deploy
 all: clean validate deploy
 
-export BRANCH_NAME ?= local
-export STACK_NAME ?= cfn-repo-store-$(BRANCH_NAME)
+export BUILDKITE_BRANCH ?= local
+export STACK_NAME ?= cfn-repo-store-$(BUILDKITE_BRANCH)
 
 clean:
 	echo nothing

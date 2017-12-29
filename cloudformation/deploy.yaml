@@ -18,10 +18,11 @@ Resources:
             Status: Enabled
             ExpirationInDays: '90'
             Transition:
-            - TransitionInDays: '1'
-              StorageClass: STANDARD_IA
-            - TransitionInDays: '5'
-              StorageClass: GLACIER
+              - StorageClass: GLACIER
+                TransitionInDays: 5
+              - StorageClass: STANDARD_IA
+                TransitionInDays: 1
+
 
       AccessControl: Private
       Tags:
