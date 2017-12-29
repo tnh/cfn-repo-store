@@ -17,9 +17,6 @@ Resources:
             Prefix: ''
             Status: Enabled
             ExpirationInDays: '90'
-            Transition:
-              - StorageClass: STANDARD_IA
-                TransitionInDays: 30
 
 
       AccessControl: Private
