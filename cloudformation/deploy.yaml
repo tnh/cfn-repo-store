@@ -1,0 +1,65 @@
+Parameters:
+  Owner:
+    Type: String
+    Description: An email address of who is creating this AWS stack - for tagging
+    Default: admin@thisaccount.com
+    MinLength: '4'
+
+
+Resources:
+  CfnTemplatesBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${AWS::StackName}-cfn-templates"
+      LifecycleConfiguration:
+        Rules:
+          - Id: DeleteEverythingInThreeMonths
+            Prefix: ''
+            Status: Enabled
+            ExpirationInDays: '90'
+            Transition:
+              - TransitionInDays: '1'
+                StorageClass: STANDARD_IA
+              - TransitionInDays: '5'
+                StorageClass: GLACIER
+      AccessControl: Private
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName} Cloudformaiton Templates"
+      - Key: Owner
+        Value: !Ref Owner
+
+
+  CfnTemplatesBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref 'CfnTemplatesBucket'
+      PolicyDocument:
+        Statement:
+          - Sid: List
+            Action:
+              - s3:ListBucket
+            Effect: Allow
+            Resource: !Sub 'arn:aws:s3:::${CfnTemplatesBucket}'
+            Principal:
+              AWS:
+                - !Sub arn:aws:iam::${AWS::AccountId}:root
+                # maybe the other accounts here
+          - Sid: Read
+            Action:
+              - s3:Get*
+            Effect: Allow
+            Resource: !Sub 'arn:aws:s3:::${CfnTemplatesBucket}/*'
+            Principal:
+              AWS:
+                - !Sub arn:aws:iam::${AWS::AccountId}:root
+                # maybe the other accounts here
+          - Sid: Write
+            Action:
+              - s3:Put*
+            Effect: Allow
+            Resource: !Sub 'arn:aws:s3:::${CfnTemplatesBucket}/*'
+            Principal:
+              AWS:
+                - !Sub arn:aws:iam::${AWS::AccountId}:root
+                # maybe people who need to upload keys here too
