@@ -18,7 +18,7 @@ aws cloudformation describe-stacks --stack-name ${STACKNAME} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     # Create
     aws cloudformation create-stack --stack-name ${STACKNAME} \
-                                    --template-url ${TEMPLATE} \
+                                    --template-body file://${TEMPLATE} \
                                     --parameters file://${PARAMETERS} \
                                     --capabilities CAPABILITY_IAM
     if [ $? -eq 0 ] ; then
@@ -30,7 +30,7 @@ if [ $? -ne 0 ]; then
 else
     # Update
     UPDATE=$(aws cloudformation update-stack --stack-name ${STACKNAME} \
-                                    --template-url ${TEMPLATE} \
+                                    --template-body file://${TEMPLATE} \
                                     --parameters file://${PARAMETERS} \
                                     --capabilities CAPABILITY_IAM 2>&1)
 

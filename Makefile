@@ -11,4 +11,4 @@ validate:
 	aws cloudformation validate-template --region ap-southeast-2 --template-body file://cloudformation/deploy.yaml
 
 deploy:
-	echo nothing
+	scripts/create_or_update_stack.sh $(STACK_NAME) cloudformation/deploy.yaml cloudformation/params.json
