@@ -19,9 +19,9 @@ Resources:
             ExpirationInDays: '90'
             Transition:
               - StorageClass: GLACIER
-                TransitionInDays: 5
+                TransitionInDays: 60
               - StorageClass: STANDARD_IA
-                TransitionInDays: 1
+                TransitionInDays: 30
 
 
       AccessControl: Private
