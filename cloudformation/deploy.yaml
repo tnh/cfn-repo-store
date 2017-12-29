@@ -18,8 +18,6 @@ Resources:
             Status: Enabled
             ExpirationInDays: '90'
             Transition:
-              - StorageClass: GLACIER
-                TransitionInDays: 60
               - StorageClass: STANDARD_IA
                 TransitionInDays: 30
 
