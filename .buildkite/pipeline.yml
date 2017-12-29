@@ -4,3 +4,8 @@ env:
 steps:
   - name: ":cloudformation: Validate template"
     command: "make validate"
+    
+  - wait
+
+  - name: ":cloudformation: Deploy template"
+    command: "make deploy"

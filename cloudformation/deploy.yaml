@@ -17,11 +17,8 @@ Resources:
             Prefix: ''
             Status: Enabled
             ExpirationInDays: '90'
-            Transition:
-              - TransitionInDays: '1'
-                StorageClass: STANDARD_IA
-              - TransitionInDays: '5'
-                StorageClass: GLACIER
+
+
       AccessControl: Private
       Tags:
       - Key: Name
